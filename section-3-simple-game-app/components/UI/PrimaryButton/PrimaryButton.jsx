@@ -17,6 +17,11 @@ function getButtonStyles(buttonStyle) {
       rippleColour = 'danger-ripple';
       break;
     }
+    case 'tertiary': {
+      _buttonStyle = 'tertiary';
+      rippleColour = 'tertiary-ripple';
+      break;
+    }
     default: {
       _buttonStyle = 'default';
       rippleColour = 'default-ripple';
@@ -27,6 +32,11 @@ function getButtonStyles(buttonStyle) {
   return [_buttonStyle, rippleColour];
 }
 
+/**
+ *
+ * @param {{children: , onPress: (...args) => any, buttonStyle: 'primary'|'danger'|'tertiary'|'default', style: {}}}} param0
+ * @returns JSX.Element
+ */
 export default function PrimaryButton({ children, onPress, buttonStyle, style }) {
   const [_buttonStyle, rippleColour] = getButtonStyles(buttonStyle);
 
@@ -69,6 +79,9 @@ const styles = StyleSheet.create({
   danger: {
     backgroundColor: colours.button.danger,
   },
+  tertiary: {
+    backgroundColor: colours.tertiary,
+  },
   default: {
     backgroundColor: colours.button.default,
   },
@@ -77,6 +90,9 @@ const styles = StyleSheet.create({
   },
   'danger-ripple': {
     color: colours.button['danger-ripple'],
+  },
+  'tertiary-ripple': {
+    color: colours.button['tertiary-ripple'],
   },
   'default-ripple': {
     color: colours.button['default-ripple'],
@@ -88,6 +104,7 @@ const styles = StyleSheet.create({
     color: colours.white,
     textAlign: 'center',
     fontSize: 16,
-    // textTransform: 'uppercase',
+    fontFamily: 'open-sans-bold',
+    textTransform: 'uppercase',
   },
 });

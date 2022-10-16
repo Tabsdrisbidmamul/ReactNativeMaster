@@ -1,6 +1,7 @@
 import { LinearGradient } from 'expo-linear-gradient';
 import { useState } from 'react';
 import { TextInput, Alert, View, StyleSheet, Platform, StatusBar } from 'react-native';
+import Card from '../components/UI/Card/Card';
 import PrimaryButton from '../components/UI/PrimaryButton/PrimaryButton';
 import Title from '../components/UI/Title/Title';
 import { colours } from '../constants/colours';
@@ -34,11 +35,9 @@ export default function StartGameScreen({ handleChosenNumber }) {
   }
 
   return (
-    // <LinearGradient style={styles.container} ccolors={['#232526', '#414345']}>
-
     <View style={styles.rootContainer}>
-      <Title>Guess my number</Title>
-      <View style={styles.container}>
+      <Title style={{ marginHorizontal: 24 }}>Guess my number</Title>
+      <Card>
         <TextInput
           value={numberEntered}
           onChangeText={handleOnNumberInput}
@@ -59,7 +58,7 @@ export default function StartGameScreen({ handleChosenNumber }) {
             Confirm
           </PrimaryButton>
         </View>
-      </View>
+      </Card>
     </View>
   );
 }
@@ -72,19 +71,8 @@ const styles = StyleSheet.create({
       },
     }),
     marginVertical: 24,
-  },
-  container: {
     marginTop: 100,
-    marginHorizontal: 24,
-    padding: 16,
-    // backgroundColor: '#b92b27',
-    // borderRadius: 4,
-    // elevation: 5,
-    // shadowColor: colours.black,
-    // shadowOffset: { width: 0, height: 5 },
-    // shadowRadius: 5,
-    // shadowOpacity: 0.25,
-    alignItems: 'center',
+    // alignItems: 'center',
   },
   buttonContainer: {
     flexDirection: 'row',
@@ -103,5 +91,6 @@ const styles = StyleSheet.create({
     marginVertical: 8,
     fontWeight: 'bold',
     textAlign: 'center',
+    fontFamily: 'open-sans',
   },
 });

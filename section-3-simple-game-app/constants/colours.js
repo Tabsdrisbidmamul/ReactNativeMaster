@@ -15,6 +15,7 @@ export const colours = {
 
     'primary-ripple': '#71B280',
     'danger-ripple': '#ED213A',
+    'tertiary-ripple': '#e4c55b',
     'default-ripple': '#DBE6F6',
   },
 };
