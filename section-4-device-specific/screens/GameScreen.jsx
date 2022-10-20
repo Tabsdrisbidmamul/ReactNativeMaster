@@ -44,9 +44,7 @@ function GameScreen({ userNumber, onGameOver }) {
       (direction === 'lower' && currentGuess < userNumber) ||
       (direction === 'greater' && currentGuess > userNumber)
     ) {
-      Alert.alert("Don't lie!", 'You know that this is wrong...', [
-        { text: 'Sorry!', style: 'cancel' },
-      ]);
+      Alert.alert("Don't lie!", 'You know that this is wrong...', [{ text: 'Sorry!', style: 'cancel' }]);
       return;
     }
 
@@ -56,11 +54,7 @@ function GameScreen({ userNumber, onGameOver }) {
       minBoundary = currentGuess + 1;
     }
 
-    const newRndNumber = generateRandomBetween(
-      minBoundary,
-      maxBoundary,
-      currentGuess
-    );
+    const newRndNumber = generateRandomBetween(minBoundary, maxBoundary, currentGuess);
     setCurrentGuess(newRndNumber);
     setGuessRounds((prevGuessRounds) => [newRndNumber, ...prevGuessRounds]);
   }
@@ -72,9 +66,7 @@ function GameScreen({ userNumber, onGameOver }) {
       <Title>Opponent's Guess</Title>
       <NumberContainer>{currentGuess}</NumberContainer>
       <Card>
-        <InstructionText style={styles.instructionText}>
-          Higher or lower?
-        </InstructionText>
+        <InstructionText style={styles.instructionText}>Higher or lower?</InstructionText>
         <View style={styles.buttonsContainer}>
           <View style={styles.buttonContainer}>
             <PrimaryButton onPress={nextGuessHandler.bind(this, 'lower')}>
@@ -93,10 +85,7 @@ function GameScreen({ userNumber, onGameOver }) {
         <FlatList
           data={guessRounds}
           renderItem={(itemData) => (
-            <GuessLogItem
-              roundNumber={guessRoundsListLength - itemData.index}
-              guess={itemData.item}
-            />
+            <GuessLogItem roundNumber={guessRoundsListLength - itemData.index} guess={itemData.item} />
           )}
           keyExtractor={(item) => item}
         />
@@ -111,6 +100,7 @@ const styles = StyleSheet.create({
   screen: {
     flex: 1,
     padding: 24,
+    alignItems: 'center',
   },
   instructionText: {
     marginBottom: 12,
