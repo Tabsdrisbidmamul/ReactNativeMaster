@@ -1,4 +1,5 @@
 import { FlatList, View } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import CategoryGridTile from '../components/CategoryGridTile';
 import { CATEGORIES } from '../data/dummy-data';
 
@@ -14,11 +15,13 @@ function renderCateogryItem(item, navigation) {
 
 export default function CategoriesScreen({ navigation }) {
   return (
-    <FlatList
-      data={CATEGORIES}
-      keyExtractor={(item) => item.id}
-      renderItem={({ item }) => renderCateogryItem(item, navigation)}
-      numColumns={2}
-    />
+    <SafeAreaView>
+      <FlatList
+        data={CATEGORIES}
+        keyExtractor={(item) => item.id}
+        renderItem={({ item }) => renderCateogryItem(item, navigation)}
+        numColumns={2}
+      />
+    </SafeAreaView>
   );
 }

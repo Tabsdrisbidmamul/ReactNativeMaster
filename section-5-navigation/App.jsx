@@ -4,9 +4,11 @@ import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { Platform, SafeAreaView, StyleSheet, StatusBar, Text, View } from 'react-native';
+import { Platform, StyleSheet, StatusBar } from 'react-native';
+import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import CategoriesScreen from './screens/CategoriesScreen';
 import MealsOverviewScreen from './screens/MealsOverviewScreen';
+import { colours } from './constants/colours';
 
 const Stack = createNativeStackNavigator();
 
@@ -28,15 +30,26 @@ export default function App() {
   }
 
   return (
-    <>
+    <SafeAreaProvider>
       <SB style="dark" />
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="Categories">
-          <Stack.Screen name="Categories" component={CategoriesScreen} />
+        <Stack.Navigator
+          screenOptions={{
+            contentStyle: { backgroundColor: 'white' },
+          }}
+          initialRouteName="Categories"
+        >
+          <Stack.Screen
+            name="Categories"
+            component={CategoriesScreen}
+            options={{
+              headerShown: false,
+            }}
+          />
           <Stack.Screen name="Meals Overview" component={MealsOverviewScreen} />
         </Stack.Navigator>
       </NavigationContainer>
-    </>
+    </SafeAreaProvider>
   );
 }
 

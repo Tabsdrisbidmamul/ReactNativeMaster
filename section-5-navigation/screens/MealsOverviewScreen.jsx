@@ -1,4 +1,5 @@
 import { FlatList, StyleSheet, Text, View } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import MealItems from '../components/Meals/MealItem';
 import { MEALS } from '../data/dummy-data';
 
@@ -8,13 +9,21 @@ export default function MealsOverviewScreen({ route }) {
   const displayedMeals = MEALS.filter((el) => el.categoryIds.includes(categoryId));
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <FlatList
         data={displayedMeals}
         keyExtractor={(item) => item.id}
-        renderItem={({ item }) => <MealItems title={item.title} />}
+        renderItem={({ item }) => (
+          <MealItems
+            duration={item.duration}
+            affordability={item.affordability}
+            complexity={item.complexity}
+            uri={item.imageUrl}
+            title={item.title}
+          />
+        )}
       />
-    </View>
+    </SafeAreaView>
   );
 }
 
