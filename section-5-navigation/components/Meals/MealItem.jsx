@@ -1,20 +1,27 @@
 import { Dimensions, Pressable, StyleSheet, Text, View, ImageBackground } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { colours } from '../../constants/colours';
+import { useNavigation } from '@react-navigation/native';
 
 export default function MealItems({
+  id,
   title,
   uri,
   duration,
   complexity,
   affordability,
-  onPress,
   figureStyle,
   outerContainerStyle,
 }) {
+  const navigation = useNavigation();
+
+  function handleOnPress() {
+    navigation.navigate('Meal Details', { categoryId: id });
+  }
+
   return (
     <View style={[styles.outerContainer, outerContainerStyle]}>
-      <Pressable onPress={onPress} style={styles.pressableContainer}>
+      <Pressable onPress={handleOnPress} style={styles.pressableContainer}>
         <View style={[styles.figureContainer, figureStyle]}>
           <ImageBackground resizeMode="cover" source={{ uri: uri }} style={styles.image}>
             <LinearGradient

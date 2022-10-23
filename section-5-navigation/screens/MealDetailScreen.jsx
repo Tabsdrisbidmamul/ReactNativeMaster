@@ -1,12 +1,17 @@
-import { SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { useLayoutEffect } from 'react';
+import { Button, SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-native';
 import MealItems from '../components/Meals/MealItem';
 import { MEALS } from '../data/dummy-data';
 import Column from '../layouts/columns/Column';
 import Row from '../layouts/rows/Row';
 import BulletPoint from '../components/BulletPoint/BulletPoint';
 import { colours } from '../constants/colours';
+import Subtitle from '../components/Subtitle/Subtitle';
+import { useNavigation } from '@react-navigation/core';
+import IconButton from '../components/Buttons/IconButton';
 
 export default function MealDetailScreen({ route }) {
+  const navigation = useNavigation();
   const { categoryId } = route.params;
 
   const mealToDisplay = MEALS.find((el) => el.id === categoryId);
@@ -18,7 +23,7 @@ export default function MealDetailScreen({ route }) {
   if (mealToDisplay.ingredients.length > 2) {
     let notLoopedFully = true;
     while (notLoopedFully) {
-      if (i === mealToDisplay.ingredients.length) {
+      if (i === mealToDisplay.ingredients.length || i === mealToDisplay.ingredients.length - 1) {
         notLoopedFully = false;
         break;
       }
@@ -44,6 +49,18 @@ export default function MealDetailScreen({ route }) {
     });
   }
 
+  function handleHeaderButtonOnPress() {
+    console.log('Tapped');
+  }
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerRight: () => {
+        return <IconButton icon="heart" onPress={handleHeaderButtonOnPress} />;
+      },
+    });
+  }, [navigation, handleHeaderButtonOnPress]);
+
   return (
     <SafeAreaView style={styles.container}>
       <MealItems
@@ -58,7 +75,7 @@ export default function MealDetailScreen({ route }) {
 
       <ScrollView style={styles.scrollContainer}>
         <View style={styles.ingredientsContainer}>
-          <Text style={styles.title}>Ingredients</Text>
+          <Subtitle>Ingredients</Subtitle>
           {ingredientsToDisplay.map(({ meal1, meal2 }, index) => (
             <Row style={{ marginBottom: 12 }} key={index}>
               <Column numRows={2}>
@@ -83,7 +100,7 @@ export default function MealDetailScreen({ route }) {
         </View>
 
         <View style={styles.stepsContainer}>
-          <Text style={styles.title}>Steps</Text>
+          <Subtitle>Steps</Subtitle>
           {mealToDisplay.steps.map((el, index) => (
             <Text style={styles.stepsText} key={index}>
               {index} <BulletPoint style={{ marginRight: 8, colour: colours.black }} /> {el}
@@ -106,12 +123,12 @@ const styles = StyleSheet.create({
   },
   ingredientsContainer: {
     flex: 1,
-    // marginHorizontal: 16,
+    marginHorizontal: 16,
     padding: 16,
     paddingTop: 24,
     marginBottom: 32,
     backgroundColor: colours.purple,
-    // borderRadius: 8,
+    borderRadius: 8,
     elevation: 4,
 
     shadowColor: colours.black,
@@ -122,7 +139,10 @@ const styles = StyleSheet.create({
   stepsContainer: {
     flex: 1,
     padding: 16,
+    marginHorizontal: 16,
+    borderRadius: 8,
     backgroundColor: colours.green,
+    marginBottom: 32,
 
     elevation: 4,
 
@@ -133,21 +153,18 @@ const styles = StyleSheet.create({
   },
   ingredientLi: {
     flexDirection: 'row',
+    flex: 1,
   },
   ingrdientLiText: {
     fontFamily: 'roboto-regular',
     fontSize: 14,
     color: colours.black,
+    width: '100%',
   },
   stepsText: {
     fontFamily: 'roboto-regular',
     fontSize: 14,
     color: colours.black,
     marginBottom: 12,
-  },
-  title: {
-    fontFamily: 'roboto-light',
-    fontSize: 32,
-    marginBottom: 24,
   },
 });

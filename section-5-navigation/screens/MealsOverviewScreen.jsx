@@ -3,14 +3,10 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import MealItems from '../components/Meals/MealItem';
 import { MEALS } from '../data/dummy-data';
 
-export default function MealsOverviewScreen({ route, navigation }) {
+export default function MealsOverviewScreen({ route }) {
   const { categoryId } = route.params;
 
   const displayedMeals = MEALS.filter((el) => el.categoryIds.includes(categoryId));
-
-  function onPressNavigateTo(item) {
-    navigation.navigate('Meal Details', { categoryId: item.id });
-  }
 
   return (
     <SafeAreaView style={styles.container}>
@@ -19,12 +15,12 @@ export default function MealsOverviewScreen({ route, navigation }) {
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
           <MealItems
+            id={item.id}
             duration={item.duration}
             affordability={item.affordability}
             complexity={item.complexity}
             uri={item.imageUrl}
             title={item.title}
-            onPress={() => onPressNavigateTo(item)}
           />
         )}
       />
