@@ -2,11 +2,20 @@ import { Dimensions, Pressable, StyleSheet, Text, View, ImageBackground } from '
 import { LinearGradient } from 'expo-linear-gradient';
 import { colours } from '../../constants/colours';
 
-export default function MealItems({ title, uri, duration, complexity, affordability }) {
+export default function MealItems({
+  title,
+  uri,
+  duration,
+  complexity,
+  affordability,
+  onPress,
+  figureStyle,
+  outerContainerStyle,
+}) {
   return (
-    <View style={styles.outerContainer}>
-      <Pressable style={styles.pressableContainer}>
-        <View style={styles.figureContainer}>
+    <View style={[styles.outerContainer, outerContainerStyle]}>
+      <Pressable onPress={onPress} style={styles.pressableContainer}>
+        <View style={[styles.figureContainer, figureStyle]}>
           <ImageBackground resizeMode="cover" source={{ uri: uri }} style={styles.image}>
             <LinearGradient
               colors={['rgba(0,0,0,0.3)', 'rgba(0,0,0,1)']}

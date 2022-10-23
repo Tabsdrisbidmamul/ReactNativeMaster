@@ -6,6 +6,7 @@ import { CATEGORIES } from '../data/dummy-data';
 function renderCateogryItem(item, navigation) {
   function handleOnPressThenNavigate() {
     navigation.navigate('Meals Overview', {
+      title: item.title,
       categoryId: item.id,
     });
   }
