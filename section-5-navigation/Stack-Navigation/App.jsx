@@ -6,6 +6,7 @@ import * as SplashScreen from 'expo-splash-screen';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Platform, StyleSheet, StatusBar, Text } from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import CategoriesScreen from './screens/CategoriesScreen';
@@ -17,25 +18,27 @@ import { Ionicons } from '@expo/vector-icons';
 
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
+const BottomTabs = createBottomTabNavigator();
 
-function DrawerNavigator() {
+function BottomTabNavigator() {
   return (
-    <Drawer.Navigator>
-      <Drawer.Screen
+    <BottomTabs.Navigator>
+      <BottomTabs.Screen
         name="Categories"
         component={CategoriesScreen}
         options={{
-          drawerIcon: ({ color, size }) => <Ionicons name="home" color={color} size={size} />,
+          tabBarIcon: ({ color, size }) => <Ionicons name="home" color={color} size={size} />,
+          headerShown: false,
         }}
       />
-      <Drawer.Screen
+      <BottomTabs.Screen
         name="Favourites"
         component={FavouritesScreen}
         options={{
-          drawerIcon: ({ color, size }) => <Ionicons name="heart" color={color} size={size} />,
+          tabBarIcon: ({ color, size }) => <Ionicons name="heart" color={color} size={size} />,
         }}
       />
-    </Drawer.Navigator>
+    </BottomTabs.Navigator>
   );
 }
 
@@ -68,7 +71,7 @@ export default function App() {
         >
           <Stack.Screen
             name="Drawer"
-            component={DrawerNavigator}
+            component={BottomTabNavigator}
             options={{
               headerShown: false,
             }}
